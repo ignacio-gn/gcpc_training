@@ -13,18 +13,17 @@ def solve():
     return out
 
 
-def solve_v2():
-    sorted_c = c
+def solve_v2(c):
     max_area = 0
 
     for i in range(len(c)):
         for j in range(i, len(c)):
-            max_area = max(
+            out = max(
                 max_area,
-                sorted_c[i][1] * min(sorted_c[i][0], sorted_c[j][0]) ** 2
+                c[i][1] * min(c[i][0], c[j][0]) ** 2
             )
 
-    return max_area
+    return out
 
 
 n = int(input())
@@ -36,4 +35,4 @@ c = list(map(
     ])
 )
 
-print(solve_v2())
+print(solve_v2(c))
