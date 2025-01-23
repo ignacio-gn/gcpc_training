@@ -14,12 +14,12 @@ def solve():
 
 
 def solve_v2(c):
-    max_area = 0
+    out = 0
 
     for i in range(len(c)):
         for j in range(i, len(c)):
             out = max(
-                max_area,
+                out,
                 c[i][1] * min(c[i][0], c[j][0]) ** 2
             )
 
