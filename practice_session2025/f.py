@@ -43,13 +43,15 @@ def de_bruijn(k, n) -> str:
     return "".join(alphabet[i] for i in sequence)
 
 def binary_search(seq, l, r):
-    while l + STRING_SIZE + 1 < r:
+    while l < r:
         mid = (l + r) // 2
 
         if send_query(seq[l:mid if mid - l > STRING_SIZE else l + STRING_SIZE]) == "yes":
-            r = mid
+            if len(seq[l:mid if mid - l > STRING_SIZE else l + STRING_SIZE]) == STRING_SIZE:
+                return l
+            r = mid + STRING_SIZE - 1
         else:
-            l = mid + 1
+            l = mid + 1 - STRING_SIZE
         print(f"{l=}, {r=}")
 
     return l - 1
@@ -59,7 +61,6 @@ def solve():
 
     for i in range(1, len(seq), QUERY_SIZE - 1):
         if send_query(seq[i - 1:i + QUERY_SIZE - 1]) == "yes":
-            # substring is within i-1 - i+QUERY_SIZE-1
             start_idx = binary_search(seq, i - 1, i + QUERY_SIZE - 1)
             send_query(seq[start_idx:start_idx+STRING_SIZE], is_answer=True)
             break
